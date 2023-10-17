@@ -7,6 +7,7 @@ import { transformSVG } from './utils'
 export const config = {
   runtime: 'edge'
 }
+
 type AnyRecord = Record<string, any>
 
 const metascraper = require('metascraper')([

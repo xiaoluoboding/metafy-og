@@ -1,7 +1,7 @@
 {
-	"name": "metafy-svg",
+	"name": "metafy-og",
 	"version": "0.1.2",
-	"description": "Easily crawl a website's metadata and generate SVG as a service.",
+	"description": "Easily crawl a website's metadata and generate OG Image as a service.",
 	"scripts": {
 		"dev": "esno api/index.ts"
 	},
@@ -28,7 +28,8 @@
 		"metascraper-image": "^5.31.1",
 		"metascraper-logo": "^5.31.1",
 		"metascraper-logo-favicon": "^5.31.1",
-		"metascraper-title": "^5.31.1"
+		"metascraper-title": "^5.31.1",
+		"next": "^13.5.5"
 	},
 	"devDependencies": {
 		"@types/html-escaper": "^3.0.0",
