@@ -16,9 +16,7 @@ const metascraper = require('metascraper')([
   require('metascraper-title')()
 ])
 
-const scrapeMetaData = async (
-  targetUrl: string = 'https://github.com/one-tab-group/vercel-metafy'
-) => {
+const scrapeMetaData = async (targetUrl: string = 'https://sidespace.app') => {
   const { body: html, url } = await got(targetUrl)
   const metadata = await metascraper({ html, url })
   return metadata
