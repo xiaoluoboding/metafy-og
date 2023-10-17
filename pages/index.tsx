@@ -17,7 +17,9 @@ export default function Page() {
         <meta
           name="og:image"
           content={`${
-            process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL : ''
+            process.env.VERCEL_URL
+              ? 'https://' + process.env.VERCEL_URL
+              : 'https://og.bookmark.style'
           }/api/og?url=${url}&mode=${isDarkmode ? 'dark' : 'light'}`}
         />
       </Head>
