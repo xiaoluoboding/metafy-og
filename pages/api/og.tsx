@@ -58,17 +58,28 @@ export default async function handler(req: NextRequest) {
           <div tw="flex relative h-[630px]">
             <img width="1200" height="630" src={json.image} />
           </div>
-          <div tw="flex flex-1 relative w-full h-full p-8 bg-[#05051e]/88">
-            <div tw="flex flex-col justify-between h-full w-full">
-              <div tw="flex items-center font-semibold text-white">
+          <div
+            tw="flex flex-1 relative w-full h-full"
+            style={{
+              backgroundImage:
+                'linear-gradient(to bottom right, #6EE7B7, #3B82F6, #7C3AED)'
+            }}
+          >
+            <div
+              tw="flex flex-col justify-between h-full w-full gap-3 py-6 px-8 bg-white/75"
+              style={{
+                backdropFilter: 'blur(16px) saturate(180%)'
+              }}
+            >
+              <div tw="flex items-center font-semibold text-stone-800">
                 <span tw="text-3xl">{json.title}</span>
               </div>
-              <div tw="flex items-center mt-4 text-white">
+              <div tw="flex items-center text-stone-800">
                 <span tw="text-lg">{json.description}</span>
               </div>
-              <div tw="flex items-center mt-4">
+              <div tw="flex items-center">
                 <img src={json.logo} tw="mr-2 h-4 w-4 h-4 w-4" />
-                <span tw="text-lg text-white">
+                <span tw="text-lg text-stone-800">
                   {json.author || json.publisher || url}
                 </span>
               </div>
