@@ -1,6 +1,11 @@
 import Head from 'next/head'
+import { useSearchParams } from 'next/navigation'
 
 export default function Page() {
+  const searchParams = useSearchParams()
+  const url = searchParams.get('url')
+  const mode = searchParams.get('mode')
+  const isDarkmode = mode === 'dark'
   return (
     <div>
       <Head>
@@ -13,7 +18,7 @@ export default function Page() {
           name="og:image"
           content={`${
             process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL : ''
-          }/api/og?url=https://bookmark.style`}
+          }/api/og?url=${url}&mode=${isDarkmode ? 'dark' : 'light'}`}
         />
       </Head>
       <h1>A page with Open Graph Image.</h1>
