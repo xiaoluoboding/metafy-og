@@ -8,6 +8,7 @@ export const config = {
 export default async function handler(req: NextRequest) {
   const { searchParams } = req.nextUrl
   const url = searchParams.get('url')
+  const mode = searchParams.get('mode')
   if (!url) {
     return new ImageResponse(
       (
@@ -30,6 +31,7 @@ export default async function handler(req: NextRequest) {
     )
   }
   const imageUrl = `https://metafy.vercel.app/api?url=${url}`
+  const isDarkmode = mode === 'dark'
   const response = await fetch(imageUrl)
 
   const json = (await response.json()) as {
@@ -66,22 +68,38 @@ export default async function handler(req: NextRequest) {
             }}
           >
             <div
-              tw="flex flex-col justify-between h-full w-full gap-3 py-6 px-8 bg-white/75"
+              tw="flex flex-col justify-between h-full w-full gap-3 py-6 px-8"
               style={{
-                backdropFilter: 'blur(16px) saturate(180%)'
+                backdropFilter: 'blur(16px) saturate(180%)',
+                backgroundColor: isDarkmode
+                  ? 'rgba(0, 0, 0, .75)'
+                  : 'rgba(255, 255, 255, .75)'
               }}
             >
-              <div tw="flex items-center font-semibold text-stone-800">
+              <div
+                tw="flex items-center font-semibold"
+                style={{
+                  color: isDarkmode ? '#ffffff' : '#000000'
+                }}
+              >
                 <span tw="text-3xl">{json.title}</span>
               </div>
-              <div tw="flex items-center text-stone-800">
+              <div
+                tw="flex items-center"
+                style={{
+                  color: isDarkmode ? '#fafafa' : '#171717'
+                }}
+              >
                 <span tw="text-lg">{json.description}</span>
               </div>
-              <div tw="flex items-center">
+              <div
+                tw="flex items-center"
+                style={{
+                  color: isDarkmode ? '#fafafa' : '#171717'
+                }}
+              >
                 <img src={json.logo} tw="mr-2 h-4 w-4 h-4 w-4" />
-                <span tw="text-lg text-stone-800">
-                  {json.author || json.publisher || url}
-                </span>
+                <span tw="text-lg">{json.author || json.publisher || url}</span>
               </div>
             </div>
           </div>
