@@ -54,11 +54,11 @@ export default async function handler(req: NextRequest) {
           backgroundColor: 'white'
         }}
       >
-        <div tw="flex flex-col">
-          <div tw="flex relative">
+        <div tw="flex flex-col h-full">
+          <div tw="flex relative h-[630px]">
             <img width="1200" height="630" src={json.image} />
           </div>
-          <div tw="flex relative w-full p-8 bg-[#05051e]">
+          <div tw="flex flex-1 relative w-full h-full p-8 bg-[#05051e]/88">
             <div tw="flex flex-col justify-between h-full w-full">
               <div tw="flex items-center font-semibold text-white">
                 <span tw="text-3xl">{json.title}</span>
