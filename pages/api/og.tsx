@@ -9,6 +9,7 @@ export default async function handler(req: NextRequest) {
   const { searchParams } = req.nextUrl
   const url = searchParams.get('url')
   const mode = searchParams.get('mode')
+  const style = searchParams.get('style')
   if (!url) {
     return new ImageResponse(
       (
@@ -32,6 +33,11 @@ export default async function handler(req: NextRequest) {
   }
   const imageUrl = `https://metafy.vercel.app/api?url=${url}`
   const isDarkmode = mode === 'dark'
+  const isHorizontal = style === 'horizontal'
+  const rect = {
+    width: 1200,
+    height: isHorizontal ? 216 : 840
+  }
   const response = await fetch(imageUrl)
 
   const json = (await response.json()) as {
@@ -56,9 +62,22 @@ export default async function handler(req: NextRequest) {
           backgroundColor: 'white'
         }}
       >
-        <div tw="flex flex-col h-full">
-          <div tw="flex relative h-[630px]">
-            <img width="1200" height="630" src={json.image} />
+        <div
+          tw={`flex flex-row-reverse w-full h-full ${
+            !isHorizontal && 'flex-col'
+          }`}
+        >
+          <div
+            tw="flex relative"
+            style={{
+              height: `${isHorizontal ? 216 : 630}px`
+            }}
+          >
+            <img
+              width={isHorizontal ? 384 : 1200}
+              height={isHorizontal ? 216 : 630}
+              src={json.image}
+            />
           </div>
           <div
             tw="flex flex-1 relative w-full h-full"
@@ -77,38 +96,38 @@ export default async function handler(req: NextRequest) {
               }}
             >
               <div
-                tw="flex items-center font-semibold"
-                style={{
-                  color: isDarkmode ? '#ffffff' : '#000000'
-                }}
+                tw={`flex items-center font-semibold ${
+                  isDarkmode ? 'text-white' : 'text-dark'
+                }`}
               >
-                <span tw="text-3xl">{json.title}</span>
+                <span tw={`${isHorizontal ? 'text-2xl' : 'text-3xl'}`}>
+                  {json.title}
+                </span>
               </div>
               <div
-                tw="flex items-center"
-                style={{
-                  color: isDarkmode ? '#fafafa' : '#171717'
-                }}
+                tw={`flex items-center ${
+                  isDarkmode ? 'text-neutral-50' : 'text-neutral-900'
+                }`}
               >
-                <span tw="text-lg">{json.description}</span>
+                <span tw={`${isHorizontal ? 'text-base' : 'text-lg'}`}>
+                  {json.description}
+                </span>
               </div>
               <div
-                tw="flex items-center"
-                style={{
-                  color: isDarkmode ? '#fafafa' : '#171717'
-                }}
+                tw={`flex items-center ${
+                  isDarkmode ? 'text-neutral-50' : 'text-neutral-900'
+                }`}
               >
-                <img src={json.logo} tw="mr-2 h-4 w-4 h-4 w-4" />
-                <span tw="text-lg">{json.author || json.publisher || url}</span>
+                <img src={json.logo} tw="mr-2 h-4 w-4" />
+                <span tw={`${isHorizontal ? 'text-base' : 'text-lg'}`}>
+                  {json.author || json.publisher || url}
+                </span>
               </div>
             </div>
           </div>
         </div>
       </div>
     ),
-    {
-      width: 1200,
-      height: 840
-    }
+    rect
   )
 }
