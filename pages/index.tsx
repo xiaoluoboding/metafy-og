@@ -5,7 +5,9 @@ export default function Page() {
   const searchParams = useSearchParams()
   const url = searchParams.get('url')
   const mode = searchParams.get('mode')
+  const style = searchParams.get('style')
   const isDarkmode = mode === 'dark'
+  const isHorizontal = style === 'horizontal'
   return (
     <div>
       <Head>
@@ -20,7 +22,9 @@ export default function Page() {
             process.env.VERCEL_URL
               ? 'https://' + process.env.VERCEL_URL
               : 'https://og.bookmark.style'
-          }/api/og?url=${url}&mode=${isDarkmode ? 'dark' : 'light'}`}
+          }/api/v1?url=${url}&mode=${isDarkmode ? 'dark' : 'light'}&style=${
+            isHorizontal ? 'horizontal' : 'vertical'
+          }`}
         />
       </Head>
       <h1>A page with Open Graph Image.</h1>
