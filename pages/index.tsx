@@ -3,9 +3,9 @@ import { useSearchParams } from 'next/navigation'
 
 export default function Page() {
   const searchParams = useSearchParams()
-  const url = searchParams.get('url')
-  const mode = searchParams.get('mode')
-  const style = searchParams.get('style')
+  const url = searchParams?.get('url')
+  const mode = searchParams?.get('mode')
+  const style = searchParams?.get('style')
   const isDarkmode = mode === 'dark'
   const isHorizontal = style === 'horizontal'
   return (
